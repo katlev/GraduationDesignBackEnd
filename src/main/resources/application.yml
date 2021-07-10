@@ -1,0 +1,45 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /katle
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/design?useUnicode=true&serverTimezone=Asia/Shanghai&characterEncoding=utf-8&nullCatalogMeansCurrent=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    initial-size: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    timeBetweenEvictionRunsMillis: 60000
+    min-evictable-idle-time-millis: 300000
+    filters: stat,wall,log4j
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  http:
+    encoding:
+      charset: UTF-8
+  mvc:
+    static-path-pattern: /webapp/**
+file:
+  staticAccessPath: /static/image/**
+  uploadFolder: C://image/
+mybatis:
+  type-aliases-package: com.katle.design.entities
+  mapper-locations: classpath:mapper/*.xml
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+logging:
+  config: classpath:logback.xml
+

@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.katle.design.dao.TitlesMapper" >
+  <resultMap id="BaseResultMap" type="com.katle.design.entities.Titles" >
+    <id column="title_id" property="titleId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="title_name" property="titleName" jdbcType="VARCHAR" />
+    <result column="title_kind" property="titleKind" jdbcType="VARCHAR" />
+    <result column="title_source" property="titleSource" jdbcType="VARCHAR" />
+    <result column="title_model" property="titleModel" jdbcType="VARCHAR" />
+    <result column="title_year" property="titleYear" jdbcType="DATE" />
+    <result column="title_type" property="titleType" jdbcType="VARCHAR" />
+    <result column="title_complete" property="titleComplete" jdbcType="VARCHAR" />
+    <result column="title_value" property="titleValue" jdbcType="VARCHAR" />
+    <result column="title_require" property="titleRequire" jdbcType="VARCHAR" />
+    <result column="title_result" property="titleResult" jdbcType="VARCHAR" />
+    <result column="title_state" property="titleState" jdbcType="VARCHAR" />
+    <result column="title_major" property="titleMajor" jdbcType="VARCHAR" />
+    <result column="title_select" property="titleSelect" jdbcType="BIT" />
+    <result column="title_semester" property="titleSemester" jdbcType="VARCHAR" />
+    <result column="title_checkMan" property="titleCheckman" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    title_id, user_id, user_name, title_name, title_kind, title_source, title_model, 
+    title_year, title_type, title_complete, title_value, title_require, title_result, 
+    title_state, title_major, title_select, title_semester, title_checkMan
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.katle.design.entities.TitlesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from titles
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from titles
+    where title_id = #{titleId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from titles
+    where title_id = #{titleId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.katle.design.entities.TitlesExample" >
+    delete from titles
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.katle.design.entities.Titles" >
+    insert into titles (title_id, user_id, user_name, 
+      title_name, title_kind, title_source, 
+      title_model, title_year, title_type, 
+      title_complete, title_value, title_require, 
+      title_result, title_state, title_major, 
+      title_select, title_semester, title_checkMan
+      )
+    values (#{titleId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, 
+      #{titleName,jdbcType=VARCHAR}, #{titleKind,jdbcType=VARCHAR}, #{titleSource,jdbcType=VARCHAR}, 
+      #{titleModel,jdbcType=VARCHAR}, #{titleYear,jdbcType=DATE}, #{titleType,jdbcType=VARCHAR}, 
+      #{titleComplete,jdbcType=VARCHAR}, #{titleValue,jdbcType=VARCHAR}, #{titleRequire,jdbcType=VARCHAR}, 
+      #{titleResult,jdbcType=VARCHAR}, #{titleState,jdbcType=VARCHAR}, #{titleMajor,jdbcType=VARCHAR}, 
+      #{titleSelect,jdbcType=BIT}, #{titleSemester,jdbcType=VARCHAR}, #{titleCheckman,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.katle.design.entities.Titles" >
+    insert into titles
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="titleId != null" >
+        title_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="titleName != null" >
+        title_name,
+      </if>
+      <if test="titleKind != null" >
+        title_kind,
+      </if>
+      <if test="titleSource != null" >
+        title_source,
+      </if>
+      <if test="titleModel != null" >
+        title_model,
+      </if>
+      <if test="titleYear != null" >
+        title_year,
+      </if>
+      <if test="titleType != null" >
+        title_type,
+      </if>
+      <if test="titleComplete != null" >
+        title_complete,
+      </if>
+      <if test="titleValue != null" >
+        title_value,
+      </if>
+      <if test="titleRequire != null" >
+        title_require,
+      </if>
+      <if test="titleResult != null" >
+        title_result,
+      </if>
+      <if test="titleState != null" >
+        title_state,
+      </if>
+      <if test="titleMajor != null" >
+        title_major,
+      </if>
+      <if test="titleSelect != null" >
+        title_select,
+      </if>
+      <if test="titleSemester != null" >
+        title_semester,
+      </if>
+      <if test="titleCheckman != null" >
+        title_checkMan,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="titleId != null" >
+        #{titleId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="titleName != null" >
+        #{titleName,jdbcType=VARCHAR},
+      </if>
+      <if test="titleKind != null" >
+        #{titleKind,jdbcType=VARCHAR},
+      </if>
+      <if test="titleSource != null" >
+        #{titleSource,jdbcType=VARCHAR},
+      </if>
+      <if test="titleModel != null" >
+        #{titleModel,jdbcType=VARCHAR},
+      </if>
+      <if test="titleYear != null" >
+        #{titleYear,jdbcType=DATE},
+      </if>
+      <if test="titleType != null" >
+        #{titleType,jdbcType=VARCHAR},
+      </if>
+      <if test="titleComplete != null" >
+        #{titleComplete,jdbcType=VARCHAR},
+      </if>
+      <if test="titleValue != null" >
+        #{titleValue,jdbcType=VARCHAR},
+      </if>
+      <if test="titleRequire != null" >
+        #{titleRequire,jdbcType=VARCHAR},
+      </if>
+      <if test="titleResult != null" >
+        #{titleResult,jdbcType=VARCHAR},
+      </if>
+      <if test="titleState != null" >
+        #{titleState,jdbcType=VARCHAR},
+      </if>
+      <if test="titleMajor != null" >
+        #{titleMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="titleSelect != null" >
+        #{titleSelect,jdbcType=BIT},
+      </if>
+      <if test="titleSemester != null" >
+        #{titleSemester,jdbcType=VARCHAR},
+      </if>
+      <if test="titleCheckman != null" >
+        #{titleCheckman,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.katle.design.entities.TitlesExample" resultType="java.lang.Integer" >
+    select count(*) from titles
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update titles
+    <set >
+      <if test="record.titleId != null" >
+        title_id = #{record.titleId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleName != null" >
+        title_name = #{record.titleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleKind != null" >
+        title_kind = #{record.titleKind,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleSource != null" >
+        title_source = #{record.titleSource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleModel != null" >
+        title_model = #{record.titleModel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleYear != null" >
+        title_year = #{record.titleYear,jdbcType=DATE},
+      </if>
+      <if test="record.titleType != null" >
+        title_type = #{record.titleType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleComplete != null" >
+        title_complete = #{record.titleComplete,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleValue != null" >
+        title_value = #{record.titleValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleRequire != null" >
+        title_require = #{record.titleRequire,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleResult != null" >
+        title_result = #{record.titleResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleState != null" >
+        title_state = #{record.titleState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleMajor != null" >
+        title_major = #{record.titleMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleSelect != null" >
+        title_select = #{record.titleSelect,jdbcType=BIT},
+      </if>
+      <if test="record.titleSemester != null" >
+        title_semester = #{record.titleSemester,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titleCheckman != null" >
+        title_checkMan = #{record.titleCheckman,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update titles
+    set title_id = #{record.titleId,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      title_name = #{record.titleName,jdbcType=VARCHAR},
+      title_kind = #{record.titleKind,jdbcType=VARCHAR},
+      title_source = #{record.titleSource,jdbcType=VARCHAR},
+      title_model = #{record.titleModel,jdbcType=VARCHAR},
+      title_year = #{record.titleYear,jdbcType=DATE},
+      title_type = #{record.titleType,jdbcType=VARCHAR},
+      title_complete = #{record.titleComplete,jdbcType=VARCHAR},
+      title_value = #{record.titleValue,jdbcType=VARCHAR},
+      title_require = #{record.titleRequire,jdbcType=VARCHAR},
+      title_result = #{record.titleResult,jdbcType=VARCHAR},
+      title_state = #{record.titleState,jdbcType=VARCHAR},
+      title_major = #{record.titleMajor,jdbcType=VARCHAR},
+      title_select = #{record.titleSelect,jdbcType=BIT},
+      title_semester = #{record.titleSemester,jdbcType=VARCHAR},
+      title_checkMan = #{record.titleCheckman,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.katle.design.entities.Titles" >
+    update titles
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="titleName != null" >
+        title_name = #{titleName,jdbcType=VARCHAR},
+      </if>
+      <if test="titleKind != null" >
+        title_kind = #{titleKind,jdbcType=VARCHAR},
+      </if>
+      <if test="titleSource != null" >
+        title_source = #{titleSource,jdbcType=VARCHAR},
+      </if>
+      <if test="titleModel != null" >
+        title_model = #{titleModel,jdbcType=VARCHAR},
+      </if>
+      <if test="titleYear != null" >
+        title_year = #{titleYear,jdbcType=DATE},
+      </if>
+      <if test="titleType != null" >
+        title_type = #{titleType,jdbcType=VARCHAR},
+      </if>
+      <if test="titleComplete != null" >
+        title_complete = #{titleComplete,jdbcType=VARCHAR},
+      </if>
+      <if test="titleValue != null" >
+        title_value = #{titleValue,jdbcType=VARCHAR},
+      </if>
+      <if test="titleRequire != null" >
+        title_require = #{titleRequire,jdbcType=VARCHAR},
+      </if>
+      <if test="titleResult != null" >
+        title_result = #{titleResult,jdbcType=VARCHAR},
+      </if>
+      <if test="titleState != null" >
+        title_state = #{titleState,jdbcType=VARCHAR},
+      </if>
+      <if test="titleMajor != null" >
+        title_major = #{titleMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="titleSelect != null" >
+        title_select = #{titleSelect,jdbcType=BIT},
+      </if>
+      <if test="titleSemester != null" >
+        title_semester = #{titleSemester,jdbcType=VARCHAR},
+      </if>
+      <if test="titleCheckman != null" >
+        title_checkMan = #{titleCheckman,jdbcType=BIGINT},
+      </if>
+    </set>
+    where title_id = #{titleId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.katle.design.entities.Titles" >
+    update titles
+    set user_id = #{userId,jdbcType=BIGINT},
+      user_name = #{userName,jdbcType=VARCHAR},
+      title_name = #{titleName,jdbcType=VARCHAR},
+      title_kind = #{titleKind,jdbcType=VARCHAR},
+      title_source = #{titleSource,jdbcType=VARCHAR},
+      title_model = #{titleModel,jdbcType=VARCHAR},
+      title_year = #{titleYear,jdbcType=DATE},
+      title_type = #{titleType,jdbcType=VARCHAR},
+      title_complete = #{titleComplete,jdbcType=VARCHAR},
+      title_value = #{titleValue,jdbcType=VARCHAR},
+      title_require = #{titleRequire,jdbcType=VARCHAR},
+      title_result = #{titleResult,jdbcType=VARCHAR},
+      title_state = #{titleState,jdbcType=VARCHAR},
+      title_major = #{titleMajor,jdbcType=VARCHAR},
+      title_select = #{titleSelect,jdbcType=BIT},
+      title_semester = #{titleSemester,jdbcType=VARCHAR},
+      title_checkMan = #{titleCheckman,jdbcType=BIGINT}
+    where title_id = #{titleId,jdbcType=BIGINT}
+  </update>
+</mapper>

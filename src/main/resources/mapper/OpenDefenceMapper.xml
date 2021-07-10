@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.katle.design.dao.OpenDefenceMapper" >
+  <resultMap id="BaseResultMap" type="com.katle.design.entities.OpenDefence" >
+    <id column="open_id" property="openId" jdbcType="BIGINT" />
+    <result column="open_name" property="openName" jdbcType="VARCHAR" />
+    <result column="open_place" property="openPlace" jdbcType="VARCHAR" />
+    <result column="open_time" property="openTime" jdbcType="TIME" />
+    <result column="open_date" property="openDate" jdbcType="DATE" />
+    <result column="open_teachs" property="openTeachs" jdbcType="VARCHAR" />
+    <result column="open_students" property="openStudents" jdbcType="VARCHAR" />
+    <result column="open_leader" property="openLeader" jdbcType="VARCHAR" />
+    <result column="open_year" property="openYear" jdbcType="VARCHAR" />
+    <result column="admin_id" property="adminId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    open_id, open_name, open_place, open_time, open_date, open_teachs, open_students, 
+    open_leader, open_year, admin_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.katle.design.entities.OpenDefenceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from opendefence
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from opendefence
+    where open_id = #{openId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from opendefence
+    where open_id = #{openId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.katle.design.entities.OpenDefenceExample" >
+    delete from opendefence
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.katle.design.entities.OpenDefence" >
+    insert into opendefence (open_id, open_name, open_place, 
+      open_time, open_date, open_teachs, 
+      open_students, open_leader, open_year, 
+      admin_id)
+    values (#{openId,jdbcType=BIGINT}, #{openName,jdbcType=VARCHAR}, #{openPlace,jdbcType=VARCHAR}, 
+      #{openTime,jdbcType=TIME}, #{openDate,jdbcType=DATE}, #{openTeachs,jdbcType=VARCHAR}, 
+      #{openStudents,jdbcType=VARCHAR}, #{openLeader,jdbcType=VARCHAR}, #{openYear,jdbcType=VARCHAR}, 
+      #{adminId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.katle.design.entities.OpenDefence" >
+    insert into opendefence
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="openId != null" >
+        open_id,
+      </if>
+      <if test="openName != null" >
+        open_name,
+      </if>
+      <if test="openPlace != null" >
+        open_place,
+      </if>
+      <if test="openTime != null" >
+        open_time,
+      </if>
+      <if test="openDate != null" >
+        open_date,
+      </if>
+      <if test="openTeachs != null" >
+        open_teachs,
+      </if>
+      <if test="openStudents != null" >
+        open_students,
+      </if>
+      <if test="openLeader != null" >
+        open_leader,
+      </if>
+      <if test="openYear != null" >
+        open_year,
+      </if>
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="openId != null" >
+        #{openId,jdbcType=BIGINT},
+      </if>
+      <if test="openName != null" >
+        #{openName,jdbcType=VARCHAR},
+      </if>
+      <if test="openPlace != null" >
+        #{openPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="openTime != null" >
+        #{openTime,jdbcType=TIME},
+      </if>
+      <if test="openDate != null" >
+        #{openDate,jdbcType=DATE},
+      </if>
+      <if test="openTeachs != null" >
+        #{openTeachs,jdbcType=VARCHAR},
+      </if>
+      <if test="openStudents != null" >
+        #{openStudents,jdbcType=VARCHAR},
+      </if>
+      <if test="openLeader != null" >
+        #{openLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="openYear != null" >
+        #{openYear,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.katle.design.entities.OpenDefenceExample" resultType="java.lang.Integer" >
+    select count(*) from opendefence
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update opendefence
+    <set >
+      <if test="record.openId != null" >
+        open_id = #{record.openId,jdbcType=BIGINT},
+      </if>
+      <if test="record.openName != null" >
+        open_name = #{record.openName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openPlace != null" >
+        open_place = #{record.openPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openTime != null" >
+        open_time = #{record.openTime,jdbcType=TIME},
+      </if>
+      <if test="record.openDate != null" >
+        open_date = #{record.openDate,jdbcType=DATE},
+      </if>
+      <if test="record.openTeachs != null" >
+        open_teachs = #{record.openTeachs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openStudents != null" >
+        open_students = #{record.openStudents,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openLeader != null" >
+        open_leader = #{record.openLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openYear != null" >
+        open_year = #{record.openYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminId != null" >
+        admin_id = #{record.adminId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update opendefence
+    set open_id = #{record.openId,jdbcType=BIGINT},
+      open_name = #{record.openName,jdbcType=VARCHAR},
+      open_place = #{record.openPlace,jdbcType=VARCHAR},
+      open_time = #{record.openTime,jdbcType=TIME},
+      open_date = #{record.openDate,jdbcType=DATE},
+      open_teachs = #{record.openTeachs,jdbcType=VARCHAR},
+      open_students = #{record.openStudents,jdbcType=VARCHAR},
+      open_leader = #{record.openLeader,jdbcType=VARCHAR},
+      open_year = #{record.openYear,jdbcType=VARCHAR},
+      admin_id = #{record.adminId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.katle.design.entities.OpenDefence" >
+    update opendefence
+    <set >
+      <if test="openName != null" >
+        open_name = #{openName,jdbcType=VARCHAR},
+      </if>
+      <if test="openPlace != null" >
+        open_place = #{openPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="openTime != null" >
+        open_time = #{openTime,jdbcType=TIME},
+      </if>
+      <if test="openDate != null" >
+        open_date = #{openDate,jdbcType=DATE},
+      </if>
+      <if test="openTeachs != null" >
+        open_teachs = #{openTeachs,jdbcType=VARCHAR},
+      </if>
+      <if test="openStudents != null" >
+        open_students = #{openStudents,jdbcType=VARCHAR},
+      </if>
+      <if test="openLeader != null" >
+        open_leader = #{openLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="openYear != null" >
+        open_year = #{openYear,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null" >
+        admin_id = #{adminId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where open_id = #{openId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.katle.design.entities.OpenDefence" >
+    update opendefence
+    set open_name = #{openName,jdbcType=VARCHAR},
+      open_place = #{openPlace,jdbcType=VARCHAR},
+      open_time = #{openTime,jdbcType=TIME},
+      open_date = #{openDate,jdbcType=DATE},
+      open_teachs = #{openTeachs,jdbcType=VARCHAR},
+      open_students = #{openStudents,jdbcType=VARCHAR},
+      open_leader = #{openLeader,jdbcType=VARCHAR},
+      open_year = #{openYear,jdbcType=VARCHAR},
+      admin_id = #{adminId,jdbcType=BIGINT}
+    where open_id = #{openId,jdbcType=BIGINT}
+  </update>
+</mapper>

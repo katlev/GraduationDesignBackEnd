@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.katle.design.dao.OriginalFileMapper" >
+  <resultMap id="BaseResultMap" type="com.katle.design.entities.OriginalFile" >
+    <id column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="original_name" property="originalName" jdbcType="VARCHAR" />
+    <result column="original_path" property="originalPath" jdbcType="VARCHAR" />
+    <result column="original_check" property="originalCheck" jdbcType="INTEGER" />
+    <result column="original_opinion" property="originalOpinion" jdbcType="VARCHAR" />
+    <result column="original_checkMan" property="originalCheckman" jdbcType="BIGINT" />
+    <result column="original_year" property="originalYear" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_id, original_name, original_path, original_check, original_opinion, original_checkMan, 
+    original_year
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.katle.design.entities.OriginalFileExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from originalfile
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from originalfile
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from originalfile
+    where user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.katle.design.entities.OriginalFileExample" >
+    delete from originalfile
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.katle.design.entities.OriginalFile" >
+    insert into originalfile (user_id, original_name, original_path, 
+      original_check, original_opinion, original_checkMan, 
+      original_year)
+    values (#{userId,jdbcType=BIGINT}, #{originalName,jdbcType=VARCHAR}, #{originalPath,jdbcType=VARCHAR}, 
+      #{originalCheck,jdbcType=INTEGER}, #{originalOpinion,jdbcType=VARCHAR}, #{originalCheckman,jdbcType=BIGINT}, 
+      #{originalYear,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.katle.design.entities.OriginalFile" >
+    insert into originalfile
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="originalName != null" >
+        original_name,
+      </if>
+      <if test="originalPath != null" >
+        original_path,
+      </if>
+      <if test="originalCheck != null" >
+        original_check,
+      </if>
+      <if test="originalOpinion != null" >
+        original_opinion,
+      </if>
+      <if test="originalCheckman != null" >
+        original_checkMan,
+      </if>
+      <if test="originalYear != null" >
+        original_year,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="originalName != null" >
+        #{originalName,jdbcType=VARCHAR},
+      </if>
+      <if test="originalPath != null" >
+        #{originalPath,jdbcType=VARCHAR},
+      </if>
+      <if test="originalCheck != null" >
+        #{originalCheck,jdbcType=INTEGER},
+      </if>
+      <if test="originalOpinion != null" >
+        #{originalOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="originalCheckman != null" >
+        #{originalCheckman,jdbcType=BIGINT},
+      </if>
+      <if test="originalYear != null" >
+        #{originalYear,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.katle.design.entities.OriginalFileExample" resultType="java.lang.Integer" >
+    select count(*) from originalfile
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update originalfile
+    <set >
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.originalName != null" >
+        original_name = #{record.originalName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.originalPath != null" >
+        original_path = #{record.originalPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.originalCheck != null" >
+        original_check = #{record.originalCheck,jdbcType=INTEGER},
+      </if>
+      <if test="record.originalOpinion != null" >
+        original_opinion = #{record.originalOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.originalCheckman != null" >
+        original_checkMan = #{record.originalCheckman,jdbcType=BIGINT},
+      </if>
+      <if test="record.originalYear != null" >
+        original_year = #{record.originalYear,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update originalfile
+    set user_id = #{record.userId,jdbcType=BIGINT},
+      original_name = #{record.originalName,jdbcType=VARCHAR},
+      original_path = #{record.originalPath,jdbcType=VARCHAR},
+      original_check = #{record.originalCheck,jdbcType=INTEGER},
+      original_opinion = #{record.originalOpinion,jdbcType=VARCHAR},
+      original_checkMan = #{record.originalCheckman,jdbcType=BIGINT},
+      original_year = #{record.originalYear,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.katle.design.entities.OriginalFile" >
+    update originalfile
+    <set >
+      <if test="originalName != null" >
+        original_name = #{originalName,jdbcType=VARCHAR},
+      </if>
+      <if test="originalPath != null" >
+        original_path = #{originalPath,jdbcType=VARCHAR},
+      </if>
+      <if test="originalCheck != null" >
+        original_check = #{originalCheck,jdbcType=INTEGER},
+      </if>
+      <if test="originalOpinion != null" >
+        original_opinion = #{originalOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="originalCheckman != null" >
+        original_checkMan = #{originalCheckman,jdbcType=BIGINT},
+      </if>
+      <if test="originalYear != null" >
+        original_year = #{originalYear,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.katle.design.entities.OriginalFile" >
+    update originalfile
+    set original_name = #{originalName,jdbcType=VARCHAR},
+      original_path = #{originalPath,jdbcType=VARCHAR},
+      original_check = #{originalCheck,jdbcType=INTEGER},
+      original_opinion = #{originalOpinion,jdbcType=VARCHAR},
+      original_checkMan = #{originalCheckman,jdbcType=BIGINT},
+      original_year = #{originalYear,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+</mapper>

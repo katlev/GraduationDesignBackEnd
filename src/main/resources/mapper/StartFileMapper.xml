@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.katle.design.dao.StartFileMapper" >
+  <resultMap id="BaseResultMap" type="com.katle.design.entities.StartFile" >
+    <id column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="start_name" property="startName" jdbcType="VARCHAR" />
+    <result column="start_path" property="startPath" jdbcType="VARCHAR" />
+    <result column="start_check" property="startCheck" jdbcType="INTEGER" />
+    <result column="start_opinion" property="startOpinion" jdbcType="VARCHAR" />
+    <result column="start_checkMan" property="startCheckman" jdbcType="BIGINT" />
+    <result column="start_year" property="startYear" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_id, start_name, start_path, start_check, start_opinion, start_checkMan, start_year
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.katle.design.entities.StartFileExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from startfile
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from startfile
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from startfile
+    where user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.katle.design.entities.StartFileExample" >
+    delete from startfile
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.katle.design.entities.StartFile" >
+    insert into startfile (user_id, start_name, start_path, 
+      start_check, start_opinion, start_checkMan, 
+      start_year)
+    values (#{userId,jdbcType=BIGINT}, #{startName,jdbcType=VARCHAR}, #{startPath,jdbcType=VARCHAR}, 
+      #{startCheck,jdbcType=INTEGER}, #{startOpinion,jdbcType=VARCHAR}, #{startCheckman,jdbcType=BIGINT}, 
+      #{startYear,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.katle.design.entities.StartFile" >
+    insert into startfile
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="startName != null" >
+        start_name,
+      </if>
+      <if test="startPath != null" >
+        start_path,
+      </if>
+      <if test="startCheck != null" >
+        start_check,
+      </if>
+      <if test="startOpinion != null" >
+        start_opinion,
+      </if>
+      <if test="startCheckman != null" >
+        start_checkMan,
+      </if>
+      <if test="startYear != null" >
+        start_year,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="startName != null" >
+        #{startName,jdbcType=VARCHAR},
+      </if>
+      <if test="startPath != null" >
+        #{startPath,jdbcType=VARCHAR},
+      </if>
+      <if test="startCheck != null" >
+        #{startCheck,jdbcType=INTEGER},
+      </if>
+      <if test="startOpinion != null" >
+        #{startOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="startCheckman != null" >
+        #{startCheckman,jdbcType=BIGINT},
+      </if>
+      <if test="startYear != null" >
+        #{startYear,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.katle.design.entities.StartFileExample" resultType="java.lang.Integer" >
+    select count(*) from startfile
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update startfile
+    <set >
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.startName != null" >
+        start_name = #{record.startName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startPath != null" >
+        start_path = #{record.startPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startCheck != null" >
+        start_check = #{record.startCheck,jdbcType=INTEGER},
+      </if>
+      <if test="record.startOpinion != null" >
+        start_opinion = #{record.startOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startCheckman != null" >
+        start_checkMan = #{record.startCheckman,jdbcType=BIGINT},
+      </if>
+      <if test="record.startYear != null" >
+        start_year = #{record.startYear,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update startfile
+    set user_id = #{record.userId,jdbcType=BIGINT},
+      start_name = #{record.startName,jdbcType=VARCHAR},
+      start_path = #{record.startPath,jdbcType=VARCHAR},
+      start_check = #{record.startCheck,jdbcType=INTEGER},
+      start_opinion = #{record.startOpinion,jdbcType=VARCHAR},
+      start_checkMan = #{record.startCheckman,jdbcType=BIGINT},
+      start_year = #{record.startYear,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.katle.design.entities.StartFile" >
+    update startfile
+    <set >
+      <if test="startName != null" >
+        start_name = #{startName,jdbcType=VARCHAR},
+      </if>
+      <if test="startPath != null" >
+        start_path = #{startPath,jdbcType=VARCHAR},
+      </if>
+      <if test="startCheck != null" >
+        start_check = #{startCheck,jdbcType=INTEGER},
+      </if>
+      <if test="startOpinion != null" >
+        start_opinion = #{startOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="startCheckman != null" >
+        start_checkMan = #{startCheckman,jdbcType=BIGINT},
+      </if>
+      <if test="startYear != null" >
+        start_year = #{startYear,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.katle.design.entities.StartFile" >
+    update startfile
+    set start_name = #{startName,jdbcType=VARCHAR},
+      start_path = #{startPath,jdbcType=VARCHAR},
+      start_check = #{startCheck,jdbcType=INTEGER},
+      start_opinion = #{startOpinion,jdbcType=VARCHAR},
+      start_checkMan = #{startCheckman,jdbcType=BIGINT},
+      start_year = #{startYear,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+</mapper>

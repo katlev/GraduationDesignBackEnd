@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <!-- 配置数据库连接 -->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/design?serverTimezone=Asia/Shanghai"
+                        userId="root"
+                        password="123456">
+            <!--MySQL 不支持 schema 或者 catalog 所以需要添加这个-->
+            <property name="nullCatalogMeansCurrent" value="true"/>
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!-- 指定Entity实体类生成的位置 -->
+        <javaModelGenerator targetPackage="com.katle.design.entities"
+                            targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!--指定SQL映射文件生成的位置 -->
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!-- 指定DAO接口生成的位置 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.katle.design.dao"
+                             targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+        <!-- 指定Table的生成策略 -->
+        <!--<table tableName="file" domainObjectName="File"></table>-->
+        <!--<table tableName="role" domainObjectName="Role"></table>-->
+        <!--<table tableName="user" domainObjectName="User"></table>-->
+        <!--<table tableName="choose" domainObjectName="Choose"></table>-->
+        <table tableName="defence" domainObjectName="Defence"></table>
+        <!--<table tableName="score" domainObjectName="Score"></table>-->
+      <!--  <table tableName="titles" domainObjectName="Titles"></table>-->
+        <!--<table tableName="document" domainObjectName="Document"></table>-->
+        <!--<table tableName="openid" domainObjectName="Openid"></table>-->
+        <!--<table tableName="taskfile" domainObjectName="TaskFile"></table>-->
+        <!--<table tableName="startfile" domainObjectName="StartFile"></table>-->
+        <!--<table tableName="middlefile" domainObjectName="MiddleFile"></table>-->
+        <!--<table tableName="planfile" domainObjectName="PlanFile"></table>-->
+        <!--<table tableName="guidancefile" domainObjectName="GuidanceFile"></table>-->
+        <!--<table tableName="translationfile" domainObjectName="TranslationFile"></table>-->
+        <!--<table tableName="originalfile" domainObjectName="OriginalFile"></table>-->
+        <!--<table tableName="literaturefile" domainObjectName="LiteratureFile"></table>-->
+       <!-- <table tableName="thesisfile" domainObjectName="ThesisFile"></table>-->
+      <!--  <table tableName="permission" domainObjectName="Permission"></table>-->
+        <!--<table tableName="semester" domainObjectName="Semester"></table>-->
+        <!--<table tableName="openDefence" domainObjectName="OpenDefence"></table>-->
+         <!--<table tableName="leavemessage" domainObjectName="LeaveMessage"></table>-->
+    </context>
+</generatorConfiguration>

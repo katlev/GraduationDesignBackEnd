@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.katle.design.dao.DocumentMapper" >
+  <resultMap id="BaseResultMap" type="com.katle.design.entities.Document" >
+    <id column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="task_name" property="taskName" jdbcType="VARCHAR" />
+    <result column="task_path" property="taskPath" jdbcType="VARCHAR" />
+    <result column="start_name" property="startName" jdbcType="VARCHAR" />
+    <result column="start_path" property="startPath" jdbcType="VARCHAR" />
+    <result column="start_check" property="startCheck" jdbcType="BIT" />
+    <result column="middle_name" property="middleName" jdbcType="VARCHAR" />
+    <result column="middle_path" property="middlePath" jdbcType="VARCHAR" />
+    <result column="middle_check" property="middleCheck" jdbcType="BIT" />
+    <result column="plan_name" property="planName" jdbcType="VARCHAR" />
+    <result column="plan_path" property="planPath" jdbcType="VARCHAR" />
+    <result column="plan_check" property="planCheck" jdbcType="BIT" />
+    <result column="guidance_name" property="guidanceName" jdbcType="VARCHAR" />
+    <result column="guidance_path" property="guidancePath" jdbcType="VARCHAR" />
+    <result column="guidance_check" property="guidanceCheck" jdbcType="BIT" />
+    <result column="translation_name" property="translationName" jdbcType="VARCHAR" />
+    <result column="translation_path" property="translationPath" jdbcType="VARCHAR" />
+    <result column="translation_check" property="translationCheck" jdbcType="BIT" />
+    <result column="original_name" property="originalName" jdbcType="VARCHAR" />
+    <result column="original_path" property="originalPath" jdbcType="VARCHAR" />
+    <result column="original_check" property="originalCheck" jdbcType="BIT" />
+    <result column="literature_name" property="literatureName" jdbcType="VARCHAR" />
+    <result column="literature_path" property="literaturePath" jdbcType="VARCHAR" />
+    <result column="literature_check" property="literatureCheck" jdbcType="BIT" />
+    <result column="thesis_name" property="thesisName" jdbcType="VARCHAR" />
+    <result column="thesis_path" property="thesisPath" jdbcType="VARCHAR" />
+    <result column="thesis_check" property="thesisCheck" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_id, task_name, task_path, start_name, start_path, start_check, middle_name, 
+    middle_path, middle_check, plan_name, plan_path, plan_check, guidance_name, guidance_path, 
+    guidance_check, translation_name, translation_path, translation_check, original_name, 
+    original_path, original_check, literature_name, literature_path, literature_check, 
+    thesis_name, thesis_path, thesis_check
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.katle.design.entities.DocumentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from document
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from document
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from document
+    where user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.katle.design.entities.DocumentExample" >
+    delete from document
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.katle.design.entities.Document" >
+    insert into document (user_id, task_name, task_path, 
+      start_name, start_path, start_check, 
+      middle_name, middle_path, middle_check, 
+      plan_name, plan_path, plan_check, 
+      guidance_name, guidance_path, guidance_check, 
+      translation_name, translation_path, translation_check, 
+      original_name, original_path, original_check, 
+      literature_name, literature_path, literature_check, 
+      thesis_name, thesis_path, thesis_check
+      )
+    values (#{userId,jdbcType=BIGINT}, #{taskName,jdbcType=VARCHAR}, #{taskPath,jdbcType=VARCHAR}, 
+      #{startName,jdbcType=VARCHAR}, #{startPath,jdbcType=VARCHAR}, #{startCheck,jdbcType=BIT}, 
+      #{middleName,jdbcType=VARCHAR}, #{middlePath,jdbcType=VARCHAR}, #{middleCheck,jdbcType=BIT}, 
+      #{planName,jdbcType=VARCHAR}, #{planPath,jdbcType=VARCHAR}, #{planCheck,jdbcType=BIT}, 
+      #{guidanceName,jdbcType=VARCHAR}, #{guidancePath,jdbcType=VARCHAR}, #{guidanceCheck,jdbcType=BIT}, 
+      #{translationName,jdbcType=VARCHAR}, #{translationPath,jdbcType=VARCHAR}, #{translationCheck,jdbcType=BIT}, 
+      #{originalName,jdbcType=VARCHAR}, #{originalPath,jdbcType=VARCHAR}, #{originalCheck,jdbcType=BIT}, 
+      #{literatureName,jdbcType=VARCHAR}, #{literaturePath,jdbcType=VARCHAR}, #{literatureCheck,jdbcType=BIT}, 
+      #{thesisName,jdbcType=VARCHAR}, #{thesisPath,jdbcType=VARCHAR}, #{thesisCheck,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.katle.design.entities.Document" >
+    insert into document
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="taskName != null" >
+        task_name,
+      </if>
+      <if test="taskPath != null" >
+        task_path,
+      </if>
+      <if test="startName != null" >
+        start_name,
+      </if>
+      <if test="startPath != null" >
+        start_path,
+      </if>
+      <if test="startCheck != null" >
+        start_check,
+      </if>
+      <if test="middleName != null" >
+        middle_name,
+      </if>
+      <if test="middlePath != null" >
+        middle_path,
+      </if>
+      <if test="middleCheck != null" >
+        middle_check,
+      </if>
+      <if test="planName != null" >
+        plan_name,
+      </if>
+      <if test="planPath != null" >
+        plan_path,
+      </if>
+      <if test="planCheck != null" >
+        plan_check,
+      </if>
+      <if test="guidanceName != null" >
+        guidance_name,
+      </if>
+      <if test="guidancePath != null" >
+        guidance_path,
+      </if>
+      <if test="guidanceCheck != null" >
+        guidance_check,
+      </if>
+      <if test="translationName != null" >
+        translation_name,
+      </if>
+      <if test="translationPath != null" >
+        translation_path,
+      </if>
+      <if test="translationCheck != null" >
+        translation_check,
+      </if>
+      <if test="originalName != null" >
+        original_name,
+      </if>
+      <if test="originalPath != null" >
+        original_path,
+      </if>
+      <if test="originalCheck != null" >
+        original_check,
+      </if>
+      <if test="literatureName != null" >
+        literature_name,
+      </if>
+      <if test="literaturePath != null" >
+        literature_path,
+      </if>
+      <if test="literatureCheck != null" >
+        literature_check,
+      </if>
+      <if test="thesisName != null" >
+        thesis_name,
+      </if>
+      <if test="thesisPath != null" >
+        thesis_path,
+      </if>
+      <if test="thesisCheck != null" >
+        thesis_check,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="taskName != null" >
+        #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskPath != null" >
+        #{taskPath,jdbcType=VARCHAR},
+      </if>
+      <if test="startName != null" >
+        #{startName,jdbcType=VARCHAR},
+      </if>
+      <if test="startPath != null" >
+        #{startPath,jdbcType=VARCHAR},
+      </if>
+      <if test="startCheck != null" >
+        #{startCheck,jdbcType=BIT},
+      </if>
+      <if test="middleName != null" >
+        #{middleName,jdbcType=VARCHAR},
+      </if>
+      <if test="middlePath != null" >
+        #{middlePath,jdbcType=VARCHAR},
+      </if>
+      <if test="middleCheck != null" >
+        #{middleCheck,jdbcType=BIT},
+      </if>
+      <if test="planName != null" >
+        #{planName,jdbcType=VARCHAR},
+      </if>
+      <if test="planPath != null" >
+        #{planPath,jdbcType=VARCHAR},
+      </if>
+      <if test="planCheck != null" >
+        #{planCheck,jdbcType=BIT},
+      </if>
+      <if test="guidanceName != null" >
+        #{guidanceName,jdbcType=VARCHAR},
+      </if>
+      <if test="guidancePath != null" >
+        #{guidancePath,jdbcType=VARCHAR},
+      </if>
+      <if test="guidanceCheck != null" >
+        #{guidanceCheck,jdbcType=BIT},
+      </if>
+      <if test="translationName != null" >
+        #{translationName,jdbcType=VARCHAR},
+      </if>
+      <if test="translationPath != null" >
+        #{translationPath,jdbcType=VARCHAR},
+      </if>
+      <if test="translationCheck != null" >
+        #{translationCheck,jdbcType=BIT},
+      </if>
+      <if test="originalName != null" >
+        #{originalName,jdbcType=VARCHAR},
+      </if>
+      <if test="originalPath != null" >
+        #{originalPath,jdbcType=VARCHAR},
+      </if>
+      <if test="originalCheck != null" >
+        #{originalCheck,jdbcType=BIT},
+      </if>
+      <if test="literatureName != null" >
+        #{literatureName,jdbcType=VARCHAR},
+      </if>
+      <if test="literaturePath != null" >
+        #{literaturePath,jdbcType=VARCHAR},
+      </if>
+      <if test="literatureCheck != null" >
+        #{literatureCheck,jdbcType=BIT},
+      </if>
+      <if test="thesisName != null" >
+        #{thesisName,jdbcType=VARCHAR},
+      </if>
+      <if test="thesisPath != null" >
+        #{thesisPath,jdbcType=VARCHAR},
+      </if>
+      <if test="thesisCheck != null" >
+        #{thesisCheck,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.katle.design.entities.DocumentExample" resultType="java.lang.Integer" >
+    select count(*) from document
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update document
+    <set >
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.taskName != null" >
+        task_name = #{record.taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskPath != null" >
+        task_path = #{record.taskPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startName != null" >
+        start_name = #{record.startName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startPath != null" >
+        start_path = #{record.startPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startCheck != null" >
+        start_check = #{record.startCheck,jdbcType=BIT},
+      </if>
+      <if test="record.middleName != null" >
+        middle_name = #{record.middleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.middlePath != null" >
+        middle_path = #{record.middlePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.middleCheck != null" >
+        middle_check = #{record.middleCheck,jdbcType=BIT},
+      </if>
+      <if test="record.planName != null" >
+        plan_name = #{record.planName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.planPath != null" >
+        plan_path = #{record.planPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.planCheck != null" >
+        plan_check = #{record.planCheck,jdbcType=BIT},
+      </if>
+      <if test="record.guidanceName != null" >
+        guidance_name = #{record.guidanceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.guidancePath != null" >
+        guidance_path = #{record.guidancePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.guidanceCheck != null" >
+        guidance_check = #{record.guidanceCheck,jdbcType=BIT},
+      </if>
+      <if test="record.translationName != null" >
+        translation_name = #{record.translationName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.translationPath != null" >
+        translation_path = #{record.translationPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.translationCheck != null" >
+        translation_check = #{record.translationCheck,jdbcType=BIT},
+      </if>
+      <if test="record.originalName != null" >
+        original_name = #{record.originalName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.originalPath != null" >
+        original_path = #{record.originalPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.originalCheck != null" >
+        original_check = #{record.originalCheck,jdbcType=BIT},
+      </if>
+      <if test="record.literatureName != null" >
+        literature_name = #{record.literatureName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.literaturePath != null" >
+        literature_path = #{record.literaturePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.literatureCheck != null" >
+        literature_check = #{record.literatureCheck,jdbcType=BIT},
+      </if>
+      <if test="record.thesisName != null" >
+        thesis_name = #{record.thesisName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thesisPath != null" >
+        thesis_path = #{record.thesisPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thesisCheck != null" >
+        thesis_check = #{record.thesisCheck,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update document
+    set user_id = #{record.userId,jdbcType=BIGINT},
+      task_name = #{record.taskName,jdbcType=VARCHAR},
+      task_path = #{record.taskPath,jdbcType=VARCHAR},
+      start_name = #{record.startName,jdbcType=VARCHAR},
+      start_path = #{record.startPath,jdbcType=VARCHAR},
+      start_check = #{record.startCheck,jdbcType=BIT},
+      middle_name = #{record.middleName,jdbcType=VARCHAR},
+      middle_path = #{record.middlePath,jdbcType=VARCHAR},
+      middle_check = #{record.middleCheck,jdbcType=BIT},
+      plan_name = #{record.planName,jdbcType=VARCHAR},
+      plan_path = #{record.planPath,jdbcType=VARCHAR},
+      plan_check = #{record.planCheck,jdbcType=BIT},
+      guidance_name = #{record.guidanceName,jdbcType=VARCHAR},
+      guidance_path = #{record.guidancePath,jdbcType=VARCHAR},
+      guidance_check = #{record.guidanceCheck,jdbcType=BIT},
+      translation_name = #{record.translationName,jdbcType=VARCHAR},
+      translation_path = #{record.translationPath,jdbcType=VARCHAR},
+      translation_check = #{record.translationCheck,jdbcType=BIT},
+      original_name = #{record.originalName,jdbcType=VARCHAR},
+      original_path = #{record.originalPath,jdbcType=VARCHAR},
+      original_check = #{record.originalCheck,jdbcType=BIT},
+      literature_name = #{record.literatureName,jdbcType=VARCHAR},
+      literature_path = #{record.literaturePath,jdbcType=VARCHAR},
+      literature_check = #{record.literatureCheck,jdbcType=BIT},
+      thesis_name = #{record.thesisName,jdbcType=VARCHAR},
+      thesis_path = #{record.thesisPath,jdbcType=VARCHAR},
+      thesis_check = #{record.thesisCheck,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.katle.design.entities.Document" >
+    update document
+    <set >
+      <if test="taskName != null" >
+        task_name = #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskPath != null" >
+        task_path = #{taskPath,jdbcType=VARCHAR},
+      </if>
+      <if test="startName != null" >
+        start_name = #{startName,jdbcType=VARCHAR},
+      </if>
+      <if test="startPath != null" >
+        start_path = #{startPath,jdbcType=VARCHAR},
+      </if>
+      <if test="startCheck != null" >
+        start_check = #{startCheck,jdbcType=BIT},
+      </if>
+      <if test="middleName != null" >
+        middle_name = #{middleName,jdbcType=VARCHAR},
+      </if>
+      <if test="middlePath != null" >
+        middle_path = #{middlePath,jdbcType=VARCHAR},
+      </if>
+      <if test="middleCheck != null" >
+        middle_check = #{middleCheck,jdbcType=BIT},
+      </if>
+      <if test="planName != null" >
+        plan_name = #{planName,jdbcType=VARCHAR},
+      </if>
+      <if test="planPath != null" >
+        plan_path = #{planPath,jdbcType=VARCHAR},
+      </if>
+      <if test="planCheck != null" >
+        plan_check = #{planCheck,jdbcType=BIT},
+      </if>
+      <if test="guidanceName != null" >
+        guidance_name = #{guidanceName,jdbcType=VARCHAR},
+      </if>
+      <if test="guidancePath != null" >
+        guidance_path = #{guidancePath,jdbcType=VARCHAR},
+      </if>
+      <if test="guidanceCheck != null" >
+        guidance_check = #{guidanceCheck,jdbcType=BIT},
+      </if>
+      <if test="translationName != null" >
+        translation_name = #{translationName,jdbcType=VARCHAR},
+      </if>
+      <if test="translationPath != null" >
+        translation_path = #{translationPath,jdbcType=VARCHAR},
+      </if>
+      <if test="translationCheck != null" >
+        translation_check = #{translationCheck,jdbcType=BIT},
+      </if>
+      <if test="originalName != null" >
+        original_name = #{originalName,jdbcType=VARCHAR},
+      </if>
+      <if test="originalPath != null" >
+        original_path = #{originalPath,jdbcType=VARCHAR},
+      </if>
+      <if test="originalCheck != null" >
+        original_check = #{originalCheck,jdbcType=BIT},
+      </if>
+      <if test="literatureName != null" >
+        literature_name = #{literatureName,jdbcType=VARCHAR},
+      </if>
+      <if test="literaturePath != null" >
+        literature_path = #{literaturePath,jdbcType=VARCHAR},
+      </if>
+      <if test="literatureCheck != null" >
+        literature_check = #{literatureCheck,jdbcType=BIT},
+      </if>
+      <if test="thesisName != null" >
+        thesis_name = #{thesisName,jdbcType=VARCHAR},
+      </if>
+      <if test="thesisPath != null" >
+        thesis_path = #{thesisPath,jdbcType=VARCHAR},
+      </if>
+      <if test="thesisCheck != null" >
+        thesis_check = #{thesisCheck,jdbcType=BIT},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.katle.design.entities.Document" >
+    update document
+    set task_name = #{taskName,jdbcType=VARCHAR},
+      task_path = #{taskPath,jdbcType=VARCHAR},
+      start_name = #{startName,jdbcType=VARCHAR},
+      start_path = #{startPath,jdbcType=VARCHAR},
+      start_check = #{startCheck,jdbcType=BIT},
+      middle_name = #{middleName,jdbcType=VARCHAR},
+      middle_path = #{middlePath,jdbcType=VARCHAR},
+      middle_check = #{middleCheck,jdbcType=BIT},
+      plan_name = #{planName,jdbcType=VARCHAR},
+      plan_path = #{planPath,jdbcType=VARCHAR},
+      plan_check = #{planCheck,jdbcType=BIT},
+      guidance_name = #{guidanceName,jdbcType=VARCHAR},
+      guidance_path = #{guidancePath,jdbcType=VARCHAR},
+      guidance_check = #{guidanceCheck,jdbcType=BIT},
+      translation_name = #{translationName,jdbcType=VARCHAR},
+      translation_path = #{translationPath,jdbcType=VARCHAR},
+      translation_check = #{translationCheck,jdbcType=BIT},
+      original_name = #{originalName,jdbcType=VARCHAR},
+      original_path = #{originalPath,jdbcType=VARCHAR},
+      original_check = #{originalCheck,jdbcType=BIT},
+      literature_name = #{literatureName,jdbcType=VARCHAR},
+      literature_path = #{literaturePath,jdbcType=VARCHAR},
+      literature_check = #{literatureCheck,jdbcType=BIT},
+      thesis_name = #{thesisName,jdbcType=VARCHAR},
+      thesis_path = #{thesisPath,jdbcType=VARCHAR},
+      thesis_check = #{thesisCheck,jdbcType=BIT}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+</mapper>

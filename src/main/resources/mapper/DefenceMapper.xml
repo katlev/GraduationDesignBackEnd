@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.katle.design.dao.DefenceMapper" >
+  <resultMap id="BaseResultMap" type="com.katle.design.entities.Defence" >
+    <id column="defence_id" property="defenceId" jdbcType="BIGINT" />
+    <result column="defence_name" property="defenceName" jdbcType="VARCHAR" />
+    <result column="defence_place" property="defencePlace" jdbcType="VARCHAR" />
+    <result column="defence_time" property="defenceTime" jdbcType="TIME" />
+    <result column="defence_date" property="defenceDate" jdbcType="DATE" />
+    <result column="defence_teachs" property="defenceTeachs" jdbcType="VARCHAR" />
+    <result column="defence_students" property="defenceStudents" jdbcType="VARCHAR" />
+    <result column="defence_leader" property="defenceLeader" jdbcType="VARCHAR" />
+    <result column="defence_year" property="defenceYear" jdbcType="VARCHAR" />
+    <result column="admin_id" property="adminId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    defence_id, defence_name, defence_place, defence_time, defence_date, defence_teachs, 
+    defence_students, defence_leader, defence_year, admin_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.katle.design.entities.DefenceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from defence
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from defence
+    where defence_id = #{defenceId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from defence
+    where defence_id = #{defenceId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.katle.design.entities.DefenceExample" >
+    delete from defence
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.katle.design.entities.Defence" >
+    insert into defence (defence_id, defence_name, defence_place, 
+      defence_time, defence_date, defence_teachs, 
+      defence_students, defence_leader, defence_year, 
+      admin_id)
+    values (#{defenceId,jdbcType=BIGINT}, #{defenceName,jdbcType=VARCHAR}, #{defencePlace,jdbcType=VARCHAR}, 
+      #{defenceTime,jdbcType=TIME}, #{defenceDate,jdbcType=DATE}, #{defenceTeachs,jdbcType=VARCHAR}, 
+      #{defenceStudents,jdbcType=VARCHAR}, #{defenceLeader,jdbcType=VARCHAR}, #{defenceYear,jdbcType=VARCHAR}, 
+      #{adminId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.katle.design.entities.Defence" >
+    insert into defence
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="defenceId != null" >
+        defence_id,
+      </if>
+      <if test="defenceName != null" >
+        defence_name,
+      </if>
+      <if test="defencePlace != null" >
+        defence_place,
+      </if>
+      <if test="defenceTime != null" >
+        defence_time,
+      </if>
+      <if test="defenceDate != null" >
+        defence_date,
+      </if>
+      <if test="defenceTeachs != null" >
+        defence_teachs,
+      </if>
+      <if test="defenceStudents != null" >
+        defence_students,
+      </if>
+      <if test="defenceLeader != null" >
+        defence_leader,
+      </if>
+      <if test="defenceYear != null" >
+        defence_year,
+      </if>
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="defenceId != null" >
+        #{defenceId,jdbcType=BIGINT},
+      </if>
+      <if test="defenceName != null" >
+        #{defenceName,jdbcType=VARCHAR},
+      </if>
+      <if test="defencePlace != null" >
+        #{defencePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="defenceTime != null" >
+        #{defenceTime,jdbcType=TIME},
+      </if>
+      <if test="defenceDate != null" >
+        #{defenceDate,jdbcType=DATE},
+      </if>
+      <if test="defenceTeachs != null" >
+        #{defenceTeachs,jdbcType=VARCHAR},
+      </if>
+      <if test="defenceStudents != null" >
+        #{defenceStudents,jdbcType=VARCHAR},
+      </if>
+      <if test="defenceLeader != null" >
+        #{defenceLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="defenceYear != null" >
+        #{defenceYear,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.katle.design.entities.DefenceExample" resultType="java.lang.Integer" >
+    select count(*) from defence
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update defence
+    <set >
+      <if test="record.defenceId != null" >
+        defence_id = #{record.defenceId,jdbcType=BIGINT},
+      </if>
+      <if test="record.defenceName != null" >
+        defence_name = #{record.defenceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.defencePlace != null" >
+        defence_place = #{record.defencePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.defenceTime != null" >
+        defence_time = #{record.defenceTime,jdbcType=TIME},
+      </if>
+      <if test="record.defenceDate != null" >
+        defence_date = #{record.defenceDate,jdbcType=DATE},
+      </if>
+      <if test="record.defenceTeachs != null" >
+        defence_teachs = #{record.defenceTeachs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.defenceStudents != null" >
+        defence_students = #{record.defenceStudents,jdbcType=VARCHAR},
+      </if>
+      <if test="record.defenceLeader != null" >
+        defence_leader = #{record.defenceLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="record.defenceYear != null" >
+        defence_year = #{record.defenceYear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminId != null" >
+        admin_id = #{record.adminId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update defence
+    set defence_id = #{record.defenceId,jdbcType=BIGINT},
+      defence_name = #{record.defenceName,jdbcType=VARCHAR},
+      defence_place = #{record.defencePlace,jdbcType=VARCHAR},
+      defence_time = #{record.defenceTime,jdbcType=TIME},
+      defence_date = #{record.defenceDate,jdbcType=DATE},
+      defence_teachs = #{record.defenceTeachs,jdbcType=VARCHAR},
+      defence_students = #{record.defenceStudents,jdbcType=VARCHAR},
+      defence_leader = #{record.defenceLeader,jdbcType=VARCHAR},
+      defence_year = #{record.defenceYear,jdbcType=VARCHAR},
+      admin_id = #{record.adminId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.katle.design.entities.Defence" >
+    update defence
+    <set >
+      <if test="defenceName != null" >
+        defence_name = #{defenceName,jdbcType=VARCHAR},
+      </if>
+      <if test="defencePlace != null" >
+        defence_place = #{defencePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="defenceTime != null" >
+        defence_time = #{defenceTime,jdbcType=TIME},
+      </if>
+      <if test="defenceDate != null" >
+        defence_date = #{defenceDate,jdbcType=DATE},
+      </if>
+      <if test="defenceTeachs != null" >
+        defence_teachs = #{defenceTeachs,jdbcType=VARCHAR},
+      </if>
+      <if test="defenceStudents != null" >
+        defence_students = #{defenceStudents,jdbcType=VARCHAR},
+      </if>
+      <if test="defenceLeader != null" >
+        defence_leader = #{defenceLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="defenceYear != null" >
+        defence_year = #{defenceYear,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null" >
+        admin_id = #{adminId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where defence_id = #{defenceId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.katle.design.entities.Defence" >
+    update defence
+    set defence_name = #{defenceName,jdbcType=VARCHAR},
+      defence_place = #{defencePlace,jdbcType=VARCHAR},
+      defence_time = #{defenceTime,jdbcType=TIME},
+      defence_date = #{defenceDate,jdbcType=DATE},
+      defence_teachs = #{defenceTeachs,jdbcType=VARCHAR},
+      defence_students = #{defenceStudents,jdbcType=VARCHAR},
+      defence_leader = #{defenceLeader,jdbcType=VARCHAR},
+      defence_year = #{defenceYear,jdbcType=VARCHAR},
+      admin_id = #{adminId,jdbcType=BIGINT}
+    where defence_id = #{defenceId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.katle.design.dao.GuidanceFileMapper" >
+  <resultMap id="BaseResultMap" type="com.katle.design.entities.GuidanceFile" >
+    <id column="guidance_id" property="guidanceId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="guidance_name" property="guidanceName" jdbcType="VARCHAR" />
+    <result column="guidance_path" property="guidancePath" jdbcType="VARCHAR" />
+    <result column="guidance_date" property="guidanceDate" jdbcType="DATE" />
+    <result column="guidance_form" property="guidanceForm" jdbcType="VARCHAR" />
+    <result column="guidance_value" property="guidanceValue" jdbcType="VARCHAR" />
+    <result column="guidance_check" property="guidanceCheck" jdbcType="INTEGER" />
+    <result column="guidance_opinion" property="guidanceOpinion" jdbcType="VARCHAR" />
+    <result column="guidance_check_man" property="guidanceCheckMan" jdbcType="BIGINT" />
+    <result column="guidance_year" property="guidanceYear" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    guidance_id, user_id, guidance_name, guidance_path, guidance_date, guidance_form, 
+    guidance_value, guidance_check, guidance_opinion, guidance_check_man, guidance_year
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.katle.design.entities.GuidanceFileExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from guidancefile
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from guidancefile
+    where guidance_id = #{guidanceId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from guidancefile
+    where guidance_id = #{guidanceId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.katle.design.entities.GuidanceFileExample" >
+    delete from guidancefile
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.katle.design.entities.GuidanceFile" >
+    insert into guidancefile (guidance_id, user_id, guidance_name, 
+      guidance_path, guidance_date, guidance_form, 
+      guidance_value, guidance_check, guidance_opinion, 
+      guidance_check_man, guidance_year)
+    values (#{guidanceId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{guidanceName,jdbcType=VARCHAR}, 
+      #{guidancePath,jdbcType=VARCHAR}, #{guidanceDate,jdbcType=DATE}, #{guidanceForm,jdbcType=VARCHAR}, 
+      #{guidanceValue,jdbcType=VARCHAR}, #{guidanceCheck,jdbcType=INTEGER}, #{guidanceOpinion,jdbcType=VARCHAR}, 
+      #{guidanceCheckMan,jdbcType=BIGINT}, #{guidanceYear,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.katle.design.entities.GuidanceFile" >
+    insert into guidancefile
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="guidanceId != null" >
+        guidance_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="guidanceName != null" >
+        guidance_name,
+      </if>
+      <if test="guidancePath != null" >
+        guidance_path,
+      </if>
+      <if test="guidanceDate != null" >
+        guidance_date,
+      </if>
+      <if test="guidanceForm != null" >
+        guidance_form,
+      </if>
+      <if test="guidanceValue != null" >
+        guidance_value,
+      </if>
+      <if test="guidanceCheck != null" >
+        guidance_check,
+      </if>
+      <if test="guidanceOpinion != null" >
+        guidance_opinion,
+      </if>
+      <if test="guidanceCheckMan != null" >
+        guidance_check_man,
+      </if>
+      <if test="guidanceYear != null" >
+        guidance_year,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="guidanceId != null" >
+        #{guidanceId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="guidanceName != null" >
+        #{guidanceName,jdbcType=VARCHAR},
+      </if>
+      <if test="guidancePath != null" >
+        #{guidancePath,jdbcType=VARCHAR},
+      </if>
+      <if test="guidanceDate != null" >
+        #{guidanceDate,jdbcType=DATE},
+      </if>
+      <if test="guidanceForm != null" >
+        #{guidanceForm,jdbcType=VARCHAR},
+      </if>
+      <if test="guidanceValue != null" >
+        #{guidanceValue,jdbcType=VARCHAR},
+      </if>
+      <if test="guidanceCheck != null" >
+        #{guidanceCheck,jdbcType=INTEGER},
+      </if>
+      <if test="guidanceOpinion != null" >
+        #{guidanceOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="guidanceCheckMan != null" >
+        #{guidanceCheckMan,jdbcType=BIGINT},
+      </if>
+      <if test="guidanceYear != null" >
+        #{guidanceYear,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.katle.design.entities.GuidanceFileExample" resultType="java.lang.Integer" >
+    select count(*) from guidancefile
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update guidancefile
+    <set >
+      <if test="record.guidanceId != null" >
+        guidance_id = #{record.guidanceId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.guidanceName != null" >
+        guidance_name = #{record.guidanceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.guidancePath != null" >
+        guidance_path = #{record.guidancePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.guidanceDate != null" >
+        guidance_date = #{record.guidanceDate,jdbcType=DATE},
+      </if>
+      <if test="record.guidanceForm != null" >
+        guidance_form = #{record.guidanceForm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.guidanceValue != null" >
+        guidance_value = #{record.guidanceValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.guidanceCheck != null" >
+        guidance_check = #{record.guidanceCheck,jdbcType=INTEGER},
+      </if>
+      <if test="record.guidanceOpinion != null" >
+        guidance_opinion = #{record.guidanceOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.guidanceCheckMan != null" >
+        guidance_check_man = #{record.guidanceCheckMan,jdbcType=BIGINT},
+      </if>
+      <if test="record.guidanceYear != null" >
+        guidance_year = #{record.guidanceYear,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update guidancefile
+    set guidance_id = #{record.guidanceId,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      guidance_name = #{record.guidanceName,jdbcType=VARCHAR},
+      guidance_path = #{record.guidancePath,jdbcType=VARCHAR},
+      guidance_date = #{record.guidanceDate,jdbcType=DATE},
+      guidance_form = #{record.guidanceForm,jdbcType=VARCHAR},
+      guidance_value = #{record.guidanceValue,jdbcType=VARCHAR},
+      guidance_check = #{record.guidanceCheck,jdbcType=INTEGER},
+      guidance_opinion = #{record.guidanceOpinion,jdbcType=VARCHAR},
+      guidance_check_man = #{record.guidanceCheckMan,jdbcType=BIGINT},
+      guidance_year = #{record.guidanceYear,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.katle.design.entities.GuidanceFile" >
+    update guidancefile
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="guidanceName != null" >
+        guidance_name = #{guidanceName,jdbcType=VARCHAR},
+      </if>
+      <if test="guidancePath != null" >
+        guidance_path = #{guidancePath,jdbcType=VARCHAR},
+      </if>
+      <if test="guidanceDate != null" >
+        guidance_date = #{guidanceDate,jdbcType=DATE},
+      </if>
+      <if test="guidanceForm != null" >
+        guidance_form = #{guidanceForm,jdbcType=VARCHAR},
+      </if>
+      <if test="guidanceValue != null" >
+        guidance_value = #{guidanceValue,jdbcType=VARCHAR},
+      </if>
+      <if test="guidanceCheck != null" >
+        guidance_check = #{guidanceCheck,jdbcType=INTEGER},
+      </if>
+      <if test="guidanceOpinion != null" >
+        guidance_opinion = #{guidanceOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="guidanceCheckMan != null" >
+        guidance_check_man = #{guidanceCheckMan,jdbcType=BIGINT},
+      </if>
+      <if test="guidanceYear != null" >
+        guidance_year = #{guidanceYear,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where guidance_id = #{guidanceId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.katle.design.entities.GuidanceFile" >
+    update guidancefile
+    set user_id = #{userId,jdbcType=BIGINT},
+      guidance_name = #{guidanceName,jdbcType=VARCHAR},
+      guidance_path = #{guidancePath,jdbcType=VARCHAR},
+      guidance_date = #{guidanceDate,jdbcType=DATE},
+      guidance_form = #{guidanceForm,jdbcType=VARCHAR},
+      guidance_value = #{guidanceValue,jdbcType=VARCHAR},
+      guidance_check = #{guidanceCheck,jdbcType=INTEGER},
+      guidance_opinion = #{guidanceOpinion,jdbcType=VARCHAR},
+      guidance_check_man = #{guidanceCheckMan,jdbcType=BIGINT},
+      guidance_year = #{guidanceYear,jdbcType=VARCHAR}
+    where guidance_id = #{guidanceId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.katle.design.dao.MiddleFileMapper" >
+  <resultMap id="BaseResultMap" type="com.katle.design.entities.MiddleFile" >
+    <id column="userId" property="userid" jdbcType="BIGINT" />
+    <result column="middle_name" property="middleName" jdbcType="VARCHAR" />
+    <result column="middle_path" property="middlePath" jdbcType="VARCHAR" />
+    <result column="middle_check" property="middleCheck" jdbcType="INTEGER" />
+    <result column="middle_opinion" property="middleOpinion" jdbcType="VARCHAR" />
+    <result column="middle_checkMan" property="middleCheckman" jdbcType="BIGINT" />
+    <result column="middle_year" property="middleYear" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    userId, middle_name, middle_path, middle_check, middle_opinion, middle_checkMan, 
+    middle_year
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.katle.design.entities.MiddleFileExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from middlefile
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from middlefile
+    where userId = #{userid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from middlefile
+    where userId = #{userid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.katle.design.entities.MiddleFileExample" >
+    delete from middlefile
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.katle.design.entities.MiddleFile" >
+    insert into middlefile (userId, middle_name, middle_path, 
+      middle_check, middle_opinion, middle_checkMan, 
+      middle_year)
+    values (#{userid,jdbcType=BIGINT}, #{middleName,jdbcType=VARCHAR}, #{middlePath,jdbcType=VARCHAR}, 
+      #{middleCheck,jdbcType=INTEGER}, #{middleOpinion,jdbcType=VARCHAR}, #{middleCheckman,jdbcType=BIGINT}, 
+      #{middleYear,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.katle.design.entities.MiddleFile" >
+    insert into middlefile
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="middleName != null" >
+        middle_name,
+      </if>
+      <if test="middlePath != null" >
+        middle_path,
+      </if>
+      <if test="middleCheck != null" >
+        middle_check,
+      </if>
+      <if test="middleOpinion != null" >
+        middle_opinion,
+      </if>
+      <if test="middleCheckman != null" >
+        middle_checkMan,
+      </if>
+      <if test="middleYear != null" >
+        middle_year,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="middleName != null" >
+        #{middleName,jdbcType=VARCHAR},
+      </if>
+      <if test="middlePath != null" >
+        #{middlePath,jdbcType=VARCHAR},
+      </if>
+      <if test="middleCheck != null" >
+        #{middleCheck,jdbcType=INTEGER},
+      </if>
+      <if test="middleOpinion != null" >
+        #{middleOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="middleCheckman != null" >
+        #{middleCheckman,jdbcType=BIGINT},
+      </if>
+      <if test="middleYear != null" >
+        #{middleYear,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.katle.design.entities.MiddleFileExample" resultType="java.lang.Integer" >
+    select count(*) from middlefile
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update middlefile
+    <set >
+      <if test="record.userid != null" >
+        userId = #{record.userid,jdbcType=BIGINT},
+      </if>
+      <if test="record.middleName != null" >
+        middle_name = #{record.middleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.middlePath != null" >
+        middle_path = #{record.middlePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.middleCheck != null" >
+        middle_check = #{record.middleCheck,jdbcType=INTEGER},
+      </if>
+      <if test="record.middleOpinion != null" >
+        middle_opinion = #{record.middleOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.middleCheckman != null" >
+        middle_checkMan = #{record.middleCheckman,jdbcType=BIGINT},
+      </if>
+      <if test="record.middleYear != null" >
+        middle_year = #{record.middleYear,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update middlefile
+    set userId = #{record.userid,jdbcType=BIGINT},
+      middle_name = #{record.middleName,jdbcType=VARCHAR},
+      middle_path = #{record.middlePath,jdbcType=VARCHAR},
+      middle_check = #{record.middleCheck,jdbcType=INTEGER},
+      middle_opinion = #{record.middleOpinion,jdbcType=VARCHAR},
+      middle_checkMan = #{record.middleCheckman,jdbcType=BIGINT},
+      middle_year = #{record.middleYear,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.katle.design.entities.MiddleFile" >
+    update middlefile
+    <set >
+      <if test="middleName != null" >
+        middle_name = #{middleName,jdbcType=VARCHAR},
+      </if>
+      <if test="middlePath != null" >
+        middle_path = #{middlePath,jdbcType=VARCHAR},
+      </if>
+      <if test="middleCheck != null" >
+        middle_check = #{middleCheck,jdbcType=INTEGER},
+      </if>
+      <if test="middleOpinion != null" >
+        middle_opinion = #{middleOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="middleCheckman != null" >
+        middle_checkMan = #{middleCheckman,jdbcType=BIGINT},
+      </if>
+      <if test="middleYear != null" >
+        middle_year = #{middleYear,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where userId = #{userid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.katle.design.entities.MiddleFile" >
+    update middlefile
+    set middle_name = #{middleName,jdbcType=VARCHAR},
+      middle_path = #{middlePath,jdbcType=VARCHAR},
+      middle_check = #{middleCheck,jdbcType=INTEGER},
+      middle_opinion = #{middleOpinion,jdbcType=VARCHAR},
+      middle_checkMan = #{middleCheckman,jdbcType=BIGINT},
+      middle_year = #{middleYear,jdbcType=VARCHAR}
+    where userId = #{userid,jdbcType=BIGINT}
+  </update>
+</mapper>

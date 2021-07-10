@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.katle.design.dao.LeaveMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.katle.design.entities.LeaveMessage" >
+    <id column="message_id" property="messageId" jdbcType="BIGINT" />
+    <result column="stu_id" property="stuId" jdbcType="BIGINT" />
+    <result column="stu_message" property="stuMessage" jdbcType="VARCHAR" />
+    <result column="stu_date" property="stuDate" jdbcType="DATE" />
+    <result column="stu_time" property="stuTime" jdbcType="TIME" />
+    <result column="teach_id" property="teachId" jdbcType="BIGINT" />
+    <result column="teach_message" property="teachMessage" jdbcType="VARCHAR" />
+    <result column="teach_date" property="teachDate" jdbcType="DATE" />
+    <result column="teach_time" property="teachTime" jdbcType="TIME" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    message_id, stu_id, stu_message, stu_date, stu_time, teach_id, teach_message, teach_date, 
+    teach_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.katle.design.entities.LeaveMessageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from leavemessage
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from leavemessage
+    where message_id = #{messageId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from leavemessage
+    where message_id = #{messageId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.katle.design.entities.LeaveMessageExample" >
+    delete from leavemessage
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.katle.design.entities.LeaveMessage" >
+    insert into leavemessage (message_id, stu_id, stu_message, 
+      stu_date, stu_time, teach_id, 
+      teach_message, teach_date, teach_time
+      )
+    values (#{messageId,jdbcType=BIGINT}, #{stuId,jdbcType=BIGINT}, #{stuMessage,jdbcType=VARCHAR}, 
+      #{stuDate,jdbcType=DATE}, #{stuTime,jdbcType=TIME}, #{teachId,jdbcType=BIGINT}, 
+      #{teachMessage,jdbcType=VARCHAR}, #{teachDate,jdbcType=DATE}, #{teachTime,jdbcType=TIME}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.katle.design.entities.LeaveMessage" >
+    insert into leavemessage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="messageId != null" >
+        message_id,
+      </if>
+      <if test="stuId != null" >
+        stu_id,
+      </if>
+      <if test="stuMessage != null" >
+        stu_message,
+      </if>
+      <if test="stuDate != null" >
+        stu_date,
+      </if>
+      <if test="stuTime != null" >
+        stu_time,
+      </if>
+      <if test="teachId != null" >
+        teach_id,
+      </if>
+      <if test="teachMessage != null" >
+        teach_message,
+      </if>
+      <if test="teachDate != null" >
+        teach_date,
+      </if>
+      <if test="teachTime != null" >
+        teach_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="messageId != null" >
+        #{messageId,jdbcType=BIGINT},
+      </if>
+      <if test="stuId != null" >
+        #{stuId,jdbcType=BIGINT},
+      </if>
+      <if test="stuMessage != null" >
+        #{stuMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="stuDate != null" >
+        #{stuDate,jdbcType=DATE},
+      </if>
+      <if test="stuTime != null" >
+        #{stuTime,jdbcType=TIME},
+      </if>
+      <if test="teachId != null" >
+        #{teachId,jdbcType=BIGINT},
+      </if>
+      <if test="teachMessage != null" >
+        #{teachMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="teachDate != null" >
+        #{teachDate,jdbcType=DATE},
+      </if>
+      <if test="teachTime != null" >
+        #{teachTime,jdbcType=TIME},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.katle.design.entities.LeaveMessageExample" resultType="java.lang.Integer" >
+    select count(*) from leavemessage
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update leavemessage
+    <set >
+      <if test="record.messageId != null" >
+        message_id = #{record.messageId,jdbcType=BIGINT},
+      </if>
+      <if test="record.stuId != null" >
+        stu_id = #{record.stuId,jdbcType=BIGINT},
+      </if>
+      <if test="record.stuMessage != null" >
+        stu_message = #{record.stuMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuDate != null" >
+        stu_date = #{record.stuDate,jdbcType=DATE},
+      </if>
+      <if test="record.stuTime != null" >
+        stu_time = #{record.stuTime,jdbcType=TIME},
+      </if>
+      <if test="record.teachId != null" >
+        teach_id = #{record.teachId,jdbcType=BIGINT},
+      </if>
+      <if test="record.teachMessage != null" >
+        teach_message = #{record.teachMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teachDate != null" >
+        teach_date = #{record.teachDate,jdbcType=DATE},
+      </if>
+      <if test="record.teachTime != null" >
+        teach_time = #{record.teachTime,jdbcType=TIME},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update leavemessage
+    set message_id = #{record.messageId,jdbcType=BIGINT},
+      stu_id = #{record.stuId,jdbcType=BIGINT},
+      stu_message = #{record.stuMessage,jdbcType=VARCHAR},
+      stu_date = #{record.stuDate,jdbcType=DATE},
+      stu_time = #{record.stuTime,jdbcType=TIME},
+      teach_id = #{record.teachId,jdbcType=BIGINT},
+      teach_message = #{record.teachMessage,jdbcType=VARCHAR},
+      teach_date = #{record.teachDate,jdbcType=DATE},
+      teach_time = #{record.teachTime,jdbcType=TIME}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.katle.design.entities.LeaveMessage" >
+    update leavemessage
+    <set >
+      <if test="stuId != null" >
+        stu_id = #{stuId,jdbcType=BIGINT},
+      </if>
+      <if test="stuMessage != null" >
+        stu_message = #{stuMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="stuDate != null" >
+        stu_date = #{stuDate,jdbcType=DATE},
+      </if>
+      <if test="stuTime != null" >
+        stu_time = #{stuTime,jdbcType=TIME},
+      </if>
+      <if test="teachId != null" >
+        teach_id = #{teachId,jdbcType=BIGINT},
+      </if>
+      <if test="teachMessage != null" >
+        teach_message = #{teachMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="teachDate != null" >
+        teach_date = #{teachDate,jdbcType=DATE},
+      </if>
+      <if test="teachTime != null" >
+        teach_time = #{teachTime,jdbcType=TIME},
+      </if>
+    </set>
+    where message_id = #{messageId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.katle.design.entities.LeaveMessage" >
+    update leavemessage
+    set stu_id = #{stuId,jdbcType=BIGINT},
+      stu_message = #{stuMessage,jdbcType=VARCHAR},
+      stu_date = #{stuDate,jdbcType=DATE},
+      stu_time = #{stuTime,jdbcType=TIME},
+      teach_id = #{teachId,jdbcType=BIGINT},
+      teach_message = #{teachMessage,jdbcType=VARCHAR},
+      teach_date = #{teachDate,jdbcType=DATE},
+      teach_time = #{teachTime,jdbcType=TIME}
+    where message_id = #{messageId,jdbcType=BIGINT}
+  </update>
+</mapper>

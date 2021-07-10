@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.katle.design.dao.ThesisFileMapper" >
+  <resultMap id="BaseResultMap" type="com.katle.design.entities.ThesisFile" >
+    <id column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="thesis_name" property="thesisName" jdbcType="VARCHAR" />
+    <result column="thesis_path" property="thesisPath" jdbcType="VARCHAR" />
+    <result column="thesis_check" property="thesisCheck" jdbcType="INTEGER" />
+    <result column="thesis_opinion" property="thesisOpinion" jdbcType="VARCHAR" />
+    <result column="thesis_checkMan" property="thesisCheckman" jdbcType="BIGINT" />
+    <result column="thesis_year" property="thesisYear" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_id, thesis_name, thesis_path, thesis_check, thesis_opinion, thesis_checkMan, 
+    thesis_year
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.katle.design.entities.ThesisFileExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from thesisfile
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from thesisfile
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from thesisfile
+    where user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.katle.design.entities.ThesisFileExample" >
+    delete from thesisfile
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.katle.design.entities.ThesisFile" >
+    insert into thesisfile (user_id, thesis_name, thesis_path, 
+      thesis_check, thesis_opinion, thesis_checkMan, 
+      thesis_year)
+    values (#{userId,jdbcType=BIGINT}, #{thesisName,jdbcType=VARCHAR}, #{thesisPath,jdbcType=VARCHAR}, 
+      #{thesisCheck,jdbcType=INTEGER}, #{thesisOpinion,jdbcType=VARCHAR}, #{thesisCheckman,jdbcType=BIGINT}, 
+      #{thesisYear,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.katle.design.entities.ThesisFile" >
+    insert into thesisfile
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="thesisName != null" >
+        thesis_name,
+      </if>
+      <if test="thesisPath != null" >
+        thesis_path,
+      </if>
+      <if test="thesisCheck != null" >
+        thesis_check,
+      </if>
+      <if test="thesisOpinion != null" >
+        thesis_opinion,
+      </if>
+      <if test="thesisCheckman != null" >
+        thesis_checkMan,
+      </if>
+      <if test="thesisYear != null" >
+        thesis_year,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="thesisName != null" >
+        #{thesisName,jdbcType=VARCHAR},
+      </if>
+      <if test="thesisPath != null" >
+        #{thesisPath,jdbcType=VARCHAR},
+      </if>
+      <if test="thesisCheck != null" >
+        #{thesisCheck,jdbcType=INTEGER},
+      </if>
+      <if test="thesisOpinion != null" >
+        #{thesisOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="thesisCheckman != null" >
+        #{thesisCheckman,jdbcType=BIGINT},
+      </if>
+      <if test="thesisYear != null" >
+        #{thesisYear,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.katle.design.entities.ThesisFileExample" resultType="java.lang.Integer" >
+    select count(*) from thesisfile
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update thesisfile
+    <set >
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.thesisName != null" >
+        thesis_name = #{record.thesisName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thesisPath != null" >
+        thesis_path = #{record.thesisPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thesisCheck != null" >
+        thesis_check = #{record.thesisCheck,jdbcType=INTEGER},
+      </if>
+      <if test="record.thesisOpinion != null" >
+        thesis_opinion = #{record.thesisOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thesisCheckman != null" >
+        thesis_checkMan = #{record.thesisCheckman,jdbcType=BIGINT},
+      </if>
+      <if test="record.thesisYear != null" >
+        thesis_year = #{record.thesisYear,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update thesisfile
+    set user_id = #{record.userId,jdbcType=BIGINT},
+      thesis_name = #{record.thesisName,jdbcType=VARCHAR},
+      thesis_path = #{record.thesisPath,jdbcType=VARCHAR},
+      thesis_check = #{record.thesisCheck,jdbcType=INTEGER},
+      thesis_opinion = #{record.thesisOpinion,jdbcType=VARCHAR},
+      thesis_checkMan = #{record.thesisCheckman,jdbcType=BIGINT},
+      thesis_year = #{record.thesisYear,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.katle.design.entities.ThesisFile" >
+    update thesisfile
+    <set >
+      <if test="thesisName != null" >
+        thesis_name = #{thesisName,jdbcType=VARCHAR},
+      </if>
+      <if test="thesisPath != null" >
+        thesis_path = #{thesisPath,jdbcType=VARCHAR},
+      </if>
+      <if test="thesisCheck != null" >
+        thesis_check = #{thesisCheck,jdbcType=INTEGER},
+      </if>
+      <if test="thesisOpinion != null" >
+        thesis_opinion = #{thesisOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="thesisCheckman != null" >
+        thesis_checkMan = #{thesisCheckman,jdbcType=BIGINT},
+      </if>
+      <if test="thesisYear != null" >
+        thesis_year = #{thesisYear,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.katle.design.entities.ThesisFile" >
+    update thesisfile
+    set thesis_name = #{thesisName,jdbcType=VARCHAR},
+      thesis_path = #{thesisPath,jdbcType=VARCHAR},
+      thesis_check = #{thesisCheck,jdbcType=INTEGER},
+      thesis_opinion = #{thesisOpinion,jdbcType=VARCHAR},
+      thesis_checkMan = #{thesisCheckman,jdbcType=BIGINT},
+      thesis_year = #{thesisYear,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+</mapper>

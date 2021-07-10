@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.katle.design.dao.TranslationFileMapper" >
+  <resultMap id="BaseResultMap" type="com.katle.design.entities.TranslationFile" >
+    <id column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="translation_name" property="translationName" jdbcType="VARCHAR" />
+    <result column="translation_path" property="translationPath" jdbcType="VARCHAR" />
+    <result column="translation_check" property="translationCheck" jdbcType="INTEGER" />
+    <result column="translation_opinion" property="translationOpinion" jdbcType="VARCHAR" />
+    <result column="translation_checkMan" property="translationCheckman" jdbcType="BIGINT" />
+    <result column="translation_year" property="translationYear" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_id, translation_name, translation_path, translation_check, translation_opinion, 
+    translation_checkMan, translation_year
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.katle.design.entities.TranslationFileExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from translationfile
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from translationfile
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from translationfile
+    where user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.katle.design.entities.TranslationFileExample" >
+    delete from translationfile
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.katle.design.entities.TranslationFile" >
+    insert into translationfile (user_id, translation_name, translation_path, 
+      translation_check, translation_opinion, translation_checkMan, 
+      translation_year)
+    values (#{userId,jdbcType=BIGINT}, #{translationName,jdbcType=VARCHAR}, #{translationPath,jdbcType=VARCHAR}, 
+      #{translationCheck,jdbcType=INTEGER}, #{translationOpinion,jdbcType=VARCHAR}, #{translationCheckman,jdbcType=BIGINT}, 
+      #{translationYear,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.katle.design.entities.TranslationFile" >
+    insert into translationfile
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="translationName != null" >
+        translation_name,
+      </if>
+      <if test="translationPath != null" >
+        translation_path,
+      </if>
+      <if test="translationCheck != null" >
+        translation_check,
+      </if>
+      <if test="translationOpinion != null" >
+        translation_opinion,
+      </if>
+      <if test="translationCheckman != null" >
+        translation_checkMan,
+      </if>
+      <if test="translationYear != null" >
+        translation_year,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="translationName != null" >
+        #{translationName,jdbcType=VARCHAR},
+      </if>
+      <if test="translationPath != null" >
+        #{translationPath,jdbcType=VARCHAR},
+      </if>
+      <if test="translationCheck != null" >
+        #{translationCheck,jdbcType=INTEGER},
+      </if>
+      <if test="translationOpinion != null" >
+        #{translationOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="translationCheckman != null" >
+        #{translationCheckman,jdbcType=BIGINT},
+      </if>
+      <if test="translationYear != null" >
+        #{translationYear,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.katle.design.entities.TranslationFileExample" resultType="java.lang.Integer" >
+    select count(*) from translationfile
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update translationfile
+    <set >
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.translationName != null" >
+        translation_name = #{record.translationName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.translationPath != null" >
+        translation_path = #{record.translationPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.translationCheck != null" >
+        translation_check = #{record.translationCheck,jdbcType=INTEGER},
+      </if>
+      <if test="record.translationOpinion != null" >
+        translation_opinion = #{record.translationOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.translationCheckman != null" >
+        translation_checkMan = #{record.translationCheckman,jdbcType=BIGINT},
+      </if>
+      <if test="record.translationYear != null" >
+        translation_year = #{record.translationYear,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update translationfile
+    set user_id = #{record.userId,jdbcType=BIGINT},
+      translation_name = #{record.translationName,jdbcType=VARCHAR},
+      translation_path = #{record.translationPath,jdbcType=VARCHAR},
+      translation_check = #{record.translationCheck,jdbcType=INTEGER},
+      translation_opinion = #{record.translationOpinion,jdbcType=VARCHAR},
+      translation_checkMan = #{record.translationCheckman,jdbcType=BIGINT},
+      translation_year = #{record.translationYear,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.katle.design.entities.TranslationFile" >
+    update translationfile
+    <set >
+      <if test="translationName != null" >
+        translation_name = #{translationName,jdbcType=VARCHAR},
+      </if>
+      <if test="translationPath != null" >
+        translation_path = #{translationPath,jdbcType=VARCHAR},
+      </if>
+      <if test="translationCheck != null" >
+        translation_check = #{translationCheck,jdbcType=INTEGER},
+      </if>
+      <if test="translationOpinion != null" >
+        translation_opinion = #{translationOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="translationCheckman != null" >
+        translation_checkMan = #{translationCheckman,jdbcType=BIGINT},
+      </if>
+      <if test="translationYear != null" >
+        translation_year = #{translationYear,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.katle.design.entities.TranslationFile" >
+    update translationfile
+    set translation_name = #{translationName,jdbcType=VARCHAR},
+      translation_path = #{translationPath,jdbcType=VARCHAR},
+      translation_check = #{translationCheck,jdbcType=INTEGER},
+      translation_opinion = #{translationOpinion,jdbcType=VARCHAR},
+      translation_checkMan = #{translationCheckman,jdbcType=BIGINT},
+      translation_year = #{translationYear,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+</mapper>
